@@ -1,8 +1,6 @@
 package com.mad.wordcounter;
 
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -33,6 +31,7 @@ public class MyLayout {
         this.et = et;
         this.flag =true;//true equals add, false equals remove
         btn.setText("+");
+        btn.setTextSize(24);
         btn.setWidth(20);
         et.setWidth(780);
 

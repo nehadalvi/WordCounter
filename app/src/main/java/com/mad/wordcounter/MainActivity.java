@@ -1,14 +1,10 @@
 /*
-Homework 3
+Homework 03
+HW3_Group03.zip
 Chinmay Rawool
 Neha Kishor Dalvi
 
-
-
  */
-
-
-
 
 package com.mad.wordcounter;
 
@@ -23,19 +19,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    //boolean flag = false;
 
     LinearLayout linearLayout, l1;
 
@@ -73,22 +62,12 @@ public class MainActivity extends AppCompatActivity {
                     pg.setMax(c.size());
                     pg.setProgress(0);
                     pg.show();
-                    Log.d("MAIN", " inside main");
+                    /*Log.d("MAIN", " inside main");
                     Log.d("MAIN", c.toString());
                     Log.d("MAIN", myLayoutArrayList.toString());
                     Log.d("MAIN", words.size() + "");
-                    Log.d("MAIN", c.size() + "");
+                    Log.d("MAIN", c.size() + "");*/
                     String str;
-
-                    /*for (int i = 0; i < myLayoutArrayList.size(); i++) {
-                        Log.d("for loop iteration", i + "" + myLayoutArrayList.get(i).getEt().getText().toString());
-                        if (myLayoutArrayList.get(i).getEt().getText().toString().equals("")) {
-                            Log.d("inside for loop", String.valueOf(myLayoutArrayList.get(i).getEt().getText() + ""));
-                            Toast.makeText(MainActivity.this, "Please enter text", Toast.LENGTH_SHORT).show();
-                            blanks = true;
-                        }
-                    }*/
-
 
                     for (int j = 0; j < c.size(); j++) {
                         Log.d("MAIN", c.get(j).toString());
@@ -97,31 +76,23 @@ public class MainActivity extends AppCompatActivity {
                         str = et.getText().toString();
                         AsyncWordCount thread = new AsyncWordCount();
                         if (((CheckBox) findViewById(R.id.wc_checkBoxMatchCases)).isChecked()) {
-                            Log.d("match cases", "=" + ((CheckBox) findViewById(R.id.wc_checkBoxMatchCases)).isChecked());
+                            //Log.d("match cases", "=" + ((CheckBox) findViewById(R.id.wc_checkBoxMatchCases)).isChecked());
                             thread.execute(str, "true");
                         } else {
-                            Log.d("match cases", "=" + ((CheckBox) findViewById(R.id.wc_checkBoxMatchCases)).isChecked());
+                            //Log.d("match cases", "=" + ((CheckBox) findViewById(R.id.wc_checkBoxMatchCases)).isChecked());
                             thread.execute(str, "false");
                         }
-                        Log.d("MAIN", str);
-
-
+                        //Log.d("MAIN", str);
                     }
-
                 }
-                //Log.d("demo","after threading"+pg.getProgress()+""+pg.getMax());
 
-                //Log.d("MAIN", words.toString().trim());
             }
         });
-
     }
-
 
     void addElement() {
 
         l1 = new LinearLayout(this);
-        //l1.add(l);
         linearLayout.addView(l1);
         final MyLayout ml = new MyLayout(new Button(this), new EditText(this));
         ml.setId(count);
@@ -134,23 +105,29 @@ public class MainActivity extends AppCompatActivity {
         ml.getBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.d("neha",ml.getEt().getText()+"");
+
                 if (ml.getFlag()) {
 
                     Log.d("demo","incr="+incr);
-                    if(incr<20) {
-                        int i = view.getId();
-                        Log.d("ADD", "Id is " + i);
-                        ml.getBtn().setText("-");
-                        ml.setFlag(false);
-                        count++;
-                        incr++;
-                        addElement();
-                    }else{
-                        Toast.makeText(MainActivity.this, "Limit reached", Toast.LENGTH_SHORT).show();
+                    if(!(ml.getEt().getText().toString().equals(""))) {
+                        if (incr < 20) {
+                            int i = view.getId();
+                            Log.d("ADD", "Id is " + i);
+                            ml.getBtn().setText("-");
+                            ml.getBtn().setTextSize(24);
+                            ml.setFlag(false);
+                            count++;
+                            incr++;
+                            addElement();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Limit reached", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this, "Enter text", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    //ml.setFlag(true);
+
                     --incr;
                     int i = view.getId();
                     Log.d("REMOVE", "Id is " + i);
@@ -159,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                     myLayoutArrayList.remove(myLayoutArrayList.indexOf(ml));
                     linearLayout.removeAllViews();
                     Log.d("Array", c.toString());
-
                 }
 
             }
@@ -170,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
     class AsyncWordCount extends AsyncTask<String, Void, Void> {
         String str;
         int count;
-
 
         @Override
         protected Void doInBackground(String... strings) {
@@ -193,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     publishProgress();
                     count = wordCounter;
-                    Log.d("demo","count="+wordCounter);
+                    //Log.d("demo","count="+wordCounter);
                 }else{
                     String[] words = text.split("[-;(),\\s+_.:\"?!--#]");
 
@@ -204,9 +179,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     count = wordCounter;
                     publishProgress();
-                    Log.d("demo","count="+wordCounter);
+                    //Log.d("demo","count="+wordCounter);
                 }
-                //Log.d("demo",text);
+
 
             } catch (IOException e) {
                 e.printStackTrace();
