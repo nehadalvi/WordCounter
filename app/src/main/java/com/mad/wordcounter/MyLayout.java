@@ -27,7 +27,6 @@ public class MyLayout {
 
     public MyLayout(Button btn, EditText et) {
         this.btn = btn;
-        btn.setId(id++);
         this.et = et;
         this.flag =true;//true equals add, false equals remove
         btn.setText("+");
